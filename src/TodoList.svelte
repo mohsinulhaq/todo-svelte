@@ -1,8 +1,7 @@
 <script>
-    import store from './store'
     import Todo from './Todo.svelte'
-    let todos = []
-    store.subscribe(state => todos = state.todos)
+    export let todos = []
+    export let removeTodo
 </script>
 
 <style>
@@ -15,7 +14,7 @@
 </style>
 
 <ul>
-{#each todos as todo}
-    <Todo todo={todo} />
+{#each todos as todo (todo.id)}
+    <Todo todo={todo.text} removeTodo={() => removeTodo(todo.id)} />
 {/each}
 </ul>

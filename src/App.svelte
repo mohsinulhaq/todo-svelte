@@ -1,4 +1,5 @@
 <script>
+	import uuid from 'uuid/v4'
 	import store from './store'
 	import TodoInput from './TodoInput.svelte'
 	import TodoList from './TodoList.svelte'
@@ -8,11 +9,12 @@
 		if (!currentTodo) {
 			return
 		}
-		store.update(state => ({
-			...state,
-			todos: state.todos.concat(currentTodo)
-		}))
+		store.update(todos => todos.concat({ id: uuid(), text: currentTodo}))
 		currentTodo = ''
+	}
+
+	function removeTodo(id) {
+		store.update(todos => todos.filter(todo => todo.id !== id))
 	}
 </script>
 
@@ -23,4 +25,4 @@
 </style>
 
 <TodoInput bind:todo={currentTodo} onAddTodo={addTodo} />
-<TodoList />
+<TodoList todos={$store} {removeTodo} />

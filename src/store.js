@@ -1,7 +1,5 @@
 import { writable } from 'svelte/store'
 
-const store = writable({
-  todos: []
-})
+const store = writable([])
 
 export default store
